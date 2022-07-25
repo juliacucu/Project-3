@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500&family=Montserrat&family=Playfair+Display&display=swap');
+@import "react-alice-carousel/lib/alice-carousel.css";
+/* Maquetació mobile first */
+nav {
+  background-color: #FFEAD6;
+  margin-bottom: 40px;
+}
+
+button{
+  background-color: #FFEAD6;
+  border: 2px;
+  
+}
+
+
+h1 {
+  margin-bottom: 40px !important;
+}
+.logoHeader {
+  width: 250px;
+}
+
+.logo-image{
+  display: flex;
+  justify-content: flex-end;
+}
+.headerHomePage{
+font-family: 'Cormorant SC', serif;
+font-size: 75px;
+}
+/* .container {
+  display: flex;
+  justify-content: center;
+} */
+
+.imgLogoHome{
+  width: 25px;
+}
+
+.search-input {
+  margin-bottom: 20px;
+}
+.column-title
+  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-detail {
+  margin-bottom: 25px;
+}
+
+.card-img-top {
+  max-height: 517.5px;
+  min-height: 517.5px;
+}
+
+.img-recipe-detail {
+  margin-top: 0px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-left: 0px;
+}
+
+.img.logoHeader {
+  margin-bottom: 80px;
+}
+
+.form-group{
+display: flexbox,
+}
+
+.form-contr
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-floating {
+  position: relative;
+  min-width: 400px;
+  margin: 10px 0px;
+}
+
+.detail-recipe{
+display: flex;
+justify-content: space-between;
+}
+li {
+  margin: 5px;
+}
+svg.bi.bi-clock {
+  margin-inline: 5px;
+}
+svg.bi.bi-person-heart {
+  margin-inline: 5px;
+}
+svg.bi.bi-receipt {
+  margin-inline: 5px;
+}
+svg.bi.bi-graph-up-arrow {
+  margin-inline: 5px;
+}
+
+body {
+  margin: 20px;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;  ;
+  line-height: 3.5em;
+ 
+
+}
+
+a {
+  color: #00b7ff;
+}
+
+h1, h2, h3, h4{
+  font-family: 'Playfair Display', serif;
+  color: black;
+  
+}
+
+.error{
+  color: red;
+}
+
+.img-header {
+  height: 500px;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+.button-myApp{
+  color: white;
+  background-color: #AB8E72;
+  border-color: #AB8E72;
+}
+.button-myApp:hover{
+  background-color: #826E5A;
+  border-color: #826E5A;
+}
+
+.img-recipe-detail{
+  max-width: 100%;
+}
+
+.card.shadow-sm {
+  margin-bottom: 25px;
+}
+p.card-text {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.gradient-custom {
+  background: #EBDAC9;
+  }
+
+  .img-recipe-detail {
+    margin-top: 0px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 0px;
+  }
+
+.form-group{
+  display: flexbox,
+}
+.detail-recipe{
+  display: flex;
+  justify-content: space-between;
+}
+input#floatingInput {
+  max-width: 500px;
+  display: -webkit-inline-box;
+}
+
+button.w-100.btn.btn-lg.btn-success.button-myApp {
+  max-width: 500px;
+  color: white;
+  background-color: #968779;
+  border: #968779;
+}
+
+p {
+  margin-top: 35px;
+  margin-bottom: 1rem;
+}
+
+h1.h3.mb-3.fw-normal {
+    /* margin: 25px; */
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+/* Maquetació tablet*/
+@media (max-width:767px) {
+  .logo-image {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Maquetació desktop */
+@media (min-width: 1024px) {
+  
+}
