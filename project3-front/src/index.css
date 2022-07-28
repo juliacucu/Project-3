@@ -280,7 +280,9 @@ h1.h3.mb-3.fw-normal {
   max-width: 200px;
   font-family: montserrat;
 }
-
+.row-recipe{
+  display: flex;
+}
 
 th {
   border-bottom: none;

@@ -45,34 +45,43 @@ const UserPage = () => {
         <tbody>
           {!loading
             ? myUser.userRecipes.map((recipe) => (
-                <tr className="table-row">
-                  <td><Link to ={`/recipes/${recipe._id}/update`}>✏️</Link> <Link to={`/recipes/${recipe._id}`}>{recipe.title}</Link></td>
-                  {/* <td><Link to ={`/recipes/${recipe._id}/update`}>Update</Link></td> */}
-                  {/* <td><Link to ={`/recipes/update`}>Delete</Link></td> */}
+                <tr className="table-row justify-content-between">
+                  <td className="justify-content-between row-recipe">
+                    <div>
+                      <Link to={`/recipes/${recipe._id}`}>{recipe.title}</Link>
+                    </div>
+                    <div>
+                      <Link to={`/recipes/${recipe._id}/update`}>Update</Link>
+                    </div>
+                  </td>
                 </tr>
-
-            ))
+              ))
             : "Loading"}
         </tbody>
       </Table>
       <Table hover>
         <thead>
           <tr className="table-header">
-            <th><b>Favorite recipes</b></th>
+            <th>
+              <b>Favorite recipes</b>
+            </th>
           </tr>
         </thead>
         <tbody>
           {!loading
             ? myUser.favorites.map((recipe) => (
                 <tr className="table-row">
-                  <td><Link to={`/recipes/${recipe._id}`}>{recipe.title}</Link></td>
+                  <td>
+                    <Link to={`/recipes/${recipe._id}`}>{recipe.title}</Link>
+                  </td>
                 </tr>
-            ))
+              ))
             : "Loading"}
         </tbody>
       </Table>
-      <button className="button-app"><Link to="/recipes/create">Add new one</Link></button>
-      
+      <button className="button-app">
+        <Link to="/recipes/create">Add new one</Link>
+      </button>
     </div>
   );
 };
