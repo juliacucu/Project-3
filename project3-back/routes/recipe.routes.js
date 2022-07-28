@@ -114,10 +114,10 @@ router.delete("/recipes/:recipeId", isAuthenticated, (req, res, next) => {
 
   Recipe.findByIdAndRemove(recipeId)
     .then(
-      () => res.redirect("/recipes")
-      // res.json({
-      //   message: `Recipe with ${recipeId} is removed successfully.`,
-      // }),
+      // () => res.redirect("/recipes")
+      res.json({
+        message: `Recipe with ${recipeId} is removed successfully.`,
+      }),
     )
     .catch((error) => res.json(error));
 });

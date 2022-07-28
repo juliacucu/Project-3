@@ -17,12 +17,12 @@ iframe {
 }
 
 nav {
-  background-color: #FFEAD6;
+  background-color: #d9d0c2;
   margin-bottom: 40px;
 }
 
 button{
-  background-color: #FFEAD6;
+  background-color: #d9d0c2;
   border: 2px;
 }
 
@@ -53,6 +53,10 @@ font-size: 75px;
   display: flex;
   justify-content: center;
 } */
+
+img.card-img-top.mx-auto.d-block {
+  width: auto;
+}
 
 .imgLogoHome{
   width: 25px;
@@ -106,6 +110,7 @@ display: flexbox,
   margin: 10px 0px;
 }
 
+
 .detail-recipe{
 display: flex;
 justify-content: space-between;
@@ -139,7 +144,7 @@ body {
   color: #00b7ff;
 } */
 
-h1, h2, h3, h4{
+h1, h2, h3, h4, h5{
   font-family: 'Playfair Display', serif;
   color: black;
   
@@ -266,7 +271,7 @@ h1.h3.mb-3.fw-normal {
 }
 
 .table-header{
-  background-color: #FFE1C5;
+  background-color: #d9d0c2;
   border-bottom: none !important;
   font-family: montserrat;
 }

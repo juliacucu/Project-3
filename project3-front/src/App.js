@@ -18,6 +18,7 @@ import UpdateFormRecipe from "./pages/UpdateFormRecipe";
 import FAQsPage from "./pages/FAQsPage";
 
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import AnonRoute from "./components/AnonRoute";
 
@@ -159,6 +160,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </div>
   );
 }

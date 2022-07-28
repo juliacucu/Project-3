@@ -4,6 +4,7 @@ import { AuthContext } from "./../context/auth.context";
 import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 
 function AddRecipe(props) {
   const { user } = useContext(AuthContext);
@@ -16,6 +17,7 @@ function AddRecipe(props) {
   const [creator, setCreator] = useState(user.name);
   const [ingredients, setIngredients] = useState([]);
   const [steps, setSteps] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,6 +52,8 @@ function AddRecipe(props) {
       props.refreshRecipes();
     } catch (err) {
       console.log(err);
+    } finally{
+      navigate("/recipes")
     }
   };
 

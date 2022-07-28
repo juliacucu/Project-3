@@ -28,7 +28,7 @@ const RecipeDetailsPage = () => {
   // Get all wines from API
   const getWines = async () => {
     try {
-      const wines = await axios.get(`https://json-server-wines.herokuapp.com/wines`)
+      const wines = await axios.get(`https://wine-server-homemadechef.herokuapp.com/wines`)
       setWines(wines.data);
     } catch (err) {
       console.log(err);
@@ -56,6 +56,7 @@ const RecipeDetailsPage = () => {
         description={wine.wine_description}
         do={wine.wine_do}
         year={wine.wine_year}
+        url={wine.wine_url}
         />
       ))
     )
@@ -186,6 +187,7 @@ const RecipeDetailsPage = () => {
               </div>
 
               <div className="col-md-6">
+                <div>
                 <h2>Ingredients</h2>
                 <hr />
                 <ul>
@@ -193,10 +195,9 @@ const RecipeDetailsPage = () => {
                     <li key={ingredient}>{ingredient}</li>
                   ))}
                 </ul>
-                <div></div>
-              </div>
+                </div>
+                <div>
 
-              <div>
                 <h2>Steps</h2>
                 <hr />
                 <ol>
@@ -204,6 +205,7 @@ const RecipeDetailsPage = () => {
                     <li key={step}>{step}</li>
                   ))}
                 </ol>
+                </div>
               </div>
             </div>
           </div>

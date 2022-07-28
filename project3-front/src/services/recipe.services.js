@@ -1,4 +1,3 @@
-import axios from 'axios';
 import service from './service';
 
 const URL = '/recipes';
@@ -18,8 +17,5 @@ const getAddFavoriteService = (id) => {
 const addNewRecipeService = (newRecipe) => {
 	return service.post(`${URL}/create`, newRecipe);
 };
-const getAllWines = () => {
-	return axios.get(`https://json-server-wines.herokuapp.com/wines`);
-};
 
-export { getAllRecipesService, getRecipeDetailsService, addNewRecipeService, getAddFavoriteService, getAllWines };
+export { getAllRecipesService, getRecipeDetailsService, addNewRecipeService, getAddFavoriteService };

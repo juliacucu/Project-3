@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -17,6 +18,7 @@ const UpdateRecipe = () => {
   const [steps, setSteps] = useState([]);
   const params = useParams();
   const recipeId = params.id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Get the token from the localStorage
@@ -62,6 +64,9 @@ const UpdateRecipe = () => {
       .put(`${API_URL}/recipes/${recipeId}/update`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
+      .then(() => {
+        navigate("/user")
+      })
       // .then((response) => {
       //   props.history.push(`/recipes/${recipeId}`);
       // });
@@ -77,95 +82,18 @@ const UpdateRecipe = () => {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       // .then(() => props.history.push("/recipes"))
-      .then((res) => res.redirect("/recipes"))
-      .catch((err) => console.log(err));
+      .then(() => {
+        navigate("/user")
+      })
+
+
   };
 
   return (
     <div className="container">
       <h3>Edit recipe</h3>
-      {/* <form onSubmit={handleFormSubmit}>
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          defaultValue={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>Level:</label>
-        <select
-          className="form-control"
-          name="level"
-          value={level}
-          onChange={(e) => setLevel(e.target.value)}
-        >
-          <br />
-          <option value="Easy">Easy</option>
-          <option value="Medium">Medium</option>
-          <option value="Pro Chef">Pro Chef</option>
-        </select>
-        <label>Dish Type:</label>
-        <select
-          className="form-control"
-          name="dishType"
-          value={dishType}
-          onChange={(e) => setDishType(e.target.value)}
-        >
-          <br />
-          <option value="Breakfast">Breakfast</option>
-          <option value="Lunch">Lunch</option>
-          <option value="Dinner">Dinner</option>
-          <option value="Drinks">Drinks</option>
-          <option value="Dessert">Dessert</option>
-          <option value="Other">Other</option>
-        </select>
-        <label>Primary Ingredient:</label>
-        <select
-          className="form-control"
-          name="primaryIngredients"
-          value={primaryIngredient}
-          onChange={(e) => setPrimaryIngredient(e.target.value)}
-        >
-          <br />
-          <option value="Fish and seafood">Fish and seafood</option>
-          <option value="Vegetarian">Vegetarian</option>
-          <option value="Meat">Meat</option>
-          <option value="Pasta and Rice">Pasta and Rice</option>
-          <option value="Dessert">Dessert</option>
-          <option value="Other">Other</option>
-        </select>
-        <label>Duration:</label>
-        <input
-          type="number"
-          name="duration"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-        />
-        <label>Image:</label>
-        <input
-          type="text"
-          name="image"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-        />
-        <label>Ingredients:</label>
-        <textarea
-          type="text"
-          name="ingredients"
-          value={ingredients}
-          onChange={(e) => setIngredients(e.target.value)}
-        />
-        <label>Steps:</label>
-        <textarea
-          type="text"
-          name="steps"
-          value={steps}
-          onChange={(e) => setSteps(e.target.value)}
-        />
-
-        <button type="submit">Update recipe</button>
-      </form> */}
-      <div className="row">
+      
+<div className="row">
         <Form onSubmit={handleFormSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Title</Form.Label>
@@ -271,8 +199,8 @@ const UpdateRecipe = () => {
               Write each ingredient separated by dot " . "
             </Form.Text>
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
+          <Button variant="orange-800" type="submit">
+            Save changes
           </Button>
           <Button variant="danger" onClick={deleteRecipe}>
             Delete recipe
