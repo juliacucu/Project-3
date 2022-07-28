@@ -32,8 +32,8 @@ function LoginPage(props) {
   };
 
   return (
-    <div className="container">
-      <div className="login-container form-login w-100 m-auto">
+    <div className="container d-flex justify-content-center">
+      <div>
         <img className="logoHeader" src={logoSignUp} />
         <h1 className="h3 mb-3 fw-normal">Login</h1>
 

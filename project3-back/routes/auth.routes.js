@@ -8,6 +8,19 @@ const { isAuthenticated } = require('./../middleware/jwt.middleware.js');
 const router = express.Router();
 const saltRounds = 10;
 
+// GET my user
+router.get("/user/:userId", isAuthenticated,  (req, res, next) => {
+	const { userId } = req.params;
+
+	User.findById(userId)
+		.populate({path: 'favorites', select: 'title'})
+		.populate({path: 'userRecipes', select: 'title'})
+	  	.then((myUser) => {
+		res.json(myUser)
+	  })
+	  .catch((err) => res.json(err));
+  });
+
 // POST /signup  - Creates a new user in the database
 router.post('/signup', (req, res, next) => {
 	const { email, password, name } = req.body;
@@ -93,10 +106,10 @@ router.post('/login', (req, res, next) => {
 
 			if (passwordCorrect) {
 				// Deconstruct the user object to omit the password
-				const { _id, email, name } = foundUser;
+				const { _id, email, name, favorites, userRecipes } = foundUser;
 
 				// Create an object that will be set as the token payload
-				const payload = { _id, email, name };
+				const payload = { _id, email, name, favorites, userRecipes };
 
 				// Create and sign the token
 				const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, { algorithm: 'HS256', expiresIn: '6h' });
@@ -111,7 +124,7 @@ router.post('/login', (req, res, next) => {
 });
 
 // GET  /auth/verify  -  Used to verify JWT stored on the client
-router.get('/verify', isAuthenticated, (req, res, next) => {
+router.get('/verify', isAuthenticated, (req, res, next) => {	
 	// If JWT token is valid the payload gets decoded by the
 	// isAuthenticated middleware and made available on `req.payload`
 	//console.log(`req.payload`, req.payload);

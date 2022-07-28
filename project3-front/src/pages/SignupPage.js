@@ -33,7 +33,9 @@ function SignupPage(props) {
   };
 
   return (
-    <div className="SignupPage form-login w-100 m-auto">
+    <div className="container d-flex justify-content-center">
+
+    <div>
     <img className="logoHeader" src={logoSignUp} />
       <h1 className="h3 mb-3 fw-normal">Sign Up</h1>
 
@@ -66,6 +68,7 @@ function SignupPage(props) {
 
       <p>Already have account?</p>
       <Link to={"/login"}> Login</Link>
+    </div>
     </div>
   );
 }

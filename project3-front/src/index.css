@@ -1,6 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500&family=Montserrat&family=Playfair+Display&display=swap');
 @import "react-alice-carousel/lib/alice-carousel.css";
 /* Maquetació mobile first */
+
+a {
+  text-decoration: none !important;
+  color: black !important;
+}
+
+a:hover {
+  text-decoration: dotted !important;
+  color: brown !important;
+}
+
+iframe {
+  display: none !important;
+}
+
 nav {
   background-color: #FFEAD6;
   margin-bottom: 40px;
@@ -9,7 +24,13 @@ nav {
 button{
   background-color: #FFEAD6;
   border: 2px;
-  
+}
+
+.button-app {
+  padding: 10px;
+  border-radius: 5px;
+  width: auto;
+  margin: 5px;
 }
 
 
@@ -114,9 +135,9 @@ body {
 
 }
 
-a {
+/* a {
   color: #00b7ff;
-}
+} */
 
 h1, h2, h3, h4{
   font-family: 'Playfair Display', serif;
@@ -243,6 +264,30 @@ h1.h3.mb-3.fw-normal {
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+.table-header{
+  background-color: #FFE1C5;
+  border-bottom: none !important;
+  font-family: montserrat;
+}
+.table-row{
+  background-color: #FFFCF4;
+  max-width: 200px;
+  font-family: montserrat;
+}
+
+
+th {
+  border-bottom: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #FFEAD6 !important;
+  color: black !important;
+}
+
 /* Maquetació tablet*/
 @media (max-width:767px) {
   .logo-image {

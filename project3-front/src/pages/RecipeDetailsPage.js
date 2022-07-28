@@ -1,30 +1,89 @@
 import { useState, useEffect } from "react";
 import { getRecipeDetailsService, getAddFavoriteService } from "../services/recipe.services";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import WineCard from "../components/WineCard";
 import axios from "axios";
 
-function RecipeDetailsPage(props) {
-  const [recipe, setRecipe] = useState(null);
-  const userToken = localStorage.getItem('authToken');
+
+const RecipeDetailsPage = () => {
+  const [recipe, setRecipe] = useState();
+  const [wines, setWines] = useState();
+  const [filteredWines, setFilteredWines] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
   const { id } = useParams();
   const recipeId = id;
   const navigate = useNavigate();
 
+  // Get the recipe
   const getRecipe = async () => {
-    localStorage.getItem("authToken");
     try {
       const response = await getRecipeDetailsService(recipeId);
       setRecipe(response.data);
     } catch (err) {
       console.log(err);
+    } 
+  };
+
+  // Get all wines from API
+  const getWines = async () => {
+    try {
+      const wines = await axios.get(`https://json-server-wines.herokuapp.com/wines`)
+      setWines(wines.data);
+    } catch (err) {
+      console.log(err);
     }
+  }
+
+  // Filter all wines from WINE state
+  const filterWines = async () => {
+    const recommendedWines = wines.filter((wine) => {
+      return wine.wine_primaryIngredient.includes(recipe.primaryIngredient)
+    })
+    const threeWines = getMultipleRandom(recommendedWines, 3)
+    setFilteredWines(threeWines)
+  }
+
+  // Render the Wine Cards
+  const showWineCards = () => {
+    return (
+      filteredWines?.map((wine) => (
+        <WineCard
+        key={wine.wine_name}
+        title={wine.wine_name}
+        image={wine.wine_image} 
+        price={wine.wine_price}
+        description={wine.wine_description}
+        do={wine.wine_do}
+        year={wine.wine_year}
+        />
+      ))
+    )
+  }
+
+  // Select three random wines
+  const getMultipleRandom = (arr, num) => {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+
+    return shuffled.slice(0, num);
   };
 
   useEffect(() => {
-    getRecipe();
+    try {
+      getRecipe()
+      getWines()
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
+    }
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    filterWines()
+  }, [wines])
+  
 
   const addToFavorites = async () => {
     try{
@@ -37,7 +96,8 @@ function RecipeDetailsPage(props) {
 
   return (
     <div className="container">
-      <div className="row">
+      {isLoading ? <h1>Loading...</h1>
+      : <div className="row">
         {recipe && (
           <div>
             <h1>{recipe.title}</h1>
@@ -130,7 +190,7 @@ function RecipeDetailsPage(props) {
                 <hr />
                 <ul>
                   {recipe.ingredients.map((ingredient) => (
-                    <li>{ingredient}</li>
+                    <li key={ingredient}>{ingredient}</li>
                   ))}
                 </ul>
                 <div></div>
@@ -141,20 +201,27 @@ function RecipeDetailsPage(props) {
                 <hr />
                 <ol>
                   {recipe.steps.map((step) => (
-                    <li>{step}</li>
+                    <li key={step}>{step}</li>
                   ))}
                 </ol>
               </div>
             </div>
           </div>
         )}
+        <div className="row">
+          <h2>Our wine suggestion</h2>
+          <hr></hr>
+         {showWineCards()}
+        </div>
 
+      <div className="action-buttons">
         <Link to="/recipes">
-          <button>Back to recipes</button>
+          <button className="button-app">Back to recipes</button>
         </Link>
 
-        <button onClick={() => addToFavorites()}>Add to favorites</button>
+        <button className="button-app" onClick={() => addToFavorites()}>Add/Delete to favorites</button>
       </div>
+      </div> }
     </div>
   );
 }

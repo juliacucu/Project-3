@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import AddProject from './../components/AddProject';
 import RecipeCard from "../components/RecipeCard";
 import { getAllRecipesService } from "../services/recipe.services";
 

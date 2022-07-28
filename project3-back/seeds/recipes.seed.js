@@ -19,6 +19,7 @@ mongoose
       "level": "Pro Chef",
       "dishType": "Lunch",
       "duration": 40,
+      "primaryIngredient": 'Meat',
       "creator": "Chef LePapu",
       "image": "https://www.deliciousmagazine.co.uk/wp-content/uploads/2018/07/734115-1-eng-GB_roast-beef-768x960.jpg",
       "ingredients": [
@@ -50,6 +51,7 @@ mongoose
       "title": "Smoky aubergine pasta",
       "level": "Easy",
       "dishType": "Dinner",
+      "primaryIngredient": 'Pasta and Rice',
       "duration": 40,
       "creator": "Júlia Cucurella",
       "image": "https://www.deliciousmagazine.co.uk/wp-content/uploads/2022/06/DEL_2022_Q2_SAM_FOLAN_PASTA-ALLA-NORMA-768x960.jpg",
@@ -75,6 +77,7 @@ mongoose
       "title": "Deep-dish blueberry and peach pie",
       "level": "Easy",
       "dishType": "Dessert",
+      "primaryIngredient": 'Dessert',
       "duration": 45,
       "creator": "David el Nomo",
       "image": "https://www.deliciousmagazine.co.uk/wp-content/uploads/2022/07/DEL_2022_Q3_GarethMorgans_BlueberryPeachPie-768x961.jpg",

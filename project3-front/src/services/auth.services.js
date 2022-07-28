@@ -14,4 +14,8 @@ const verifyService = () => {
 	return service.get(`${URL}/verify`);
 };
 
-export { signupService, loginService, verifyService };
+const getMyUser = (id) => {
+	return service.get(`${URL}/user/${id}`);
+};
+
+export { signupService, loginService, verifyService, getMyUser };

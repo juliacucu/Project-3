@@ -1,64 +1,172 @@
-import { useState } from "react";
-import { addNewRecipeService } from "../services/recipe.services.js";
-import { AuthContext } from "./../context/auth.context";
-import { useContext } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function AddRecipe(props) {
-  const { user } = useContext(AuthContext);
+const API_URL = process.env.REACT_APP_API_URL;
+
+const UpdateRecipe = () => {
   const [title, setTitle] = useState("");
   const [level, setLevel] = useState("");
   const [dishType, setDishType] = useState("");
   const [primaryIngredient, setPrimaryIngredient] = useState("");
   const [duration, setDuration] = useState("");
   const [image, setImage] = useState("");
-  const [creator, setCreator] = useState(user.name);
   const [ingredients, setIngredients] = useState([]);
   const [steps, setSteps] = useState([]);
+  const params = useParams();
+  const recipeId = params.id;
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    // Get the token from the localStorage
+    const storedToken = localStorage.getItem("authToken");
+
+    // Send the token through the request "Authorization" Headers
+    axios
+      .get(`${API_URL}/recipes/${recipeId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        const recipe = response.data;
+        setTitle(recipe.title);
+        setLevel(recipe.level);
+        setDishType(recipe.dishType);
+        setPrimaryIngredient(recipe.primaryIngredient);
+        setDuration(recipe.duration);
+        setImage(recipe.image);
+        setIngredients(recipe.ingredients);
+        setSteps(recipe.steps);
+      })
+      .catch((error) => console.log(error));
+  }, [recipeId]);
+
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    const newRecipe = {
+    const requestBody = {
       title,
       level,
       dishType,
       primaryIngredient,
       duration,
-      creator,
       image,
       ingredients,
       steps,
     };
 
-    // Creem un array d'ingredients
-    newRecipe.ingredients = newRecipe.ingredients.split(",");
-    newRecipe.steps = newRecipe.steps.split(".");
+    // Get the token from the localStorage
+    const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
-    try {
-      await addNewRecipeService(newRecipe);
-      setTitle("");
-      setLevel("");
-      setDishType("");
-      setPrimaryIngredient("");
-      setImage("");
-      setIngredients([]);
-      setSteps([]);
+    axios
+      .put(`${API_URL}/recipes/${recipeId}/update`, requestBody, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      // .then((response) => {
+      //   props.history.push(`/recipes/${recipeId}`);
+      // });
+  };
 
-      props.refreshRecipes();
-    } catch (err) {
-      console.log(err);
-    }
+  const deleteRecipe = () => {
+    // Get the token from the localStorage
+    const storedToken = localStorage.getItem("authToken");
+
+    // // Send the token through the request "Authorization" Headers
+    axios
+      .delete(`${API_URL}/recipes/${recipeId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      // .then(() => props.history.push("/recipes"))
+      .then((res) => res.redirect("/recipes"))
+      .catch((err) => console.log(err));
   };
 
   return (
     <div className="container">
-      <h3>Add new recipe</h3>
-      <hr></hr>
+      <h3>Edit recipe</h3>
+      {/* <form onSubmit={handleFormSubmit}>
+        <label>Title:</label>
+        <input
+          type="text"
+          name="title"
+          defaultValue={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <label>Level:</label>
+        <select
+          className="form-control"
+          name="level"
+          value={level}
+          onChange={(e) => setLevel(e.target.value)}
+        >
+          <br />
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Pro Chef">Pro Chef</option>
+        </select>
+        <label>Dish Type:</label>
+        <select
+          className="form-control"
+          name="dishType"
+          value={dishType}
+          onChange={(e) => setDishType(e.target.value)}
+        >
+          <br />
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Drinks">Drinks</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Other">Other</option>
+        </select>
+        <label>Primary Ingredient:</label>
+        <select
+          className="form-control"
+          name="primaryIngredients"
+          value={primaryIngredient}
+          onChange={(e) => setPrimaryIngredient(e.target.value)}
+        >
+          <br />
+          <option value="Fish and seafood">Fish and seafood</option>
+          <option value="Vegetarian">Vegetarian</option>
+          <option value="Meat">Meat</option>
+          <option value="Pasta and Rice">Pasta and Rice</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Other">Other</option>
+        </select>
+        <label>Duration:</label>
+        <input
+          type="number"
+          name="duration"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+        />
+        <label>Image:</label>
+        <input
+          type="text"
+          name="image"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+        />
+        <label>Ingredients:</label>
+        <textarea
+          type="text"
+          name="ingredients"
+          value={ingredients}
+          onChange={(e) => setIngredients(e.target.value)}
+        />
+        <label>Steps:</label>
+        <textarea
+          type="text"
+          name="steps"
+          value={steps}
+          onChange={(e) => setSteps(e.target.value)}
+        />
+
+        <button type="submit">Update recipe</button>
+      </form> */}
       <div className="row">
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleFormSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Title</Form.Label>
             <Form.Control
@@ -166,10 +274,15 @@ function AddRecipe(props) {
           <Button variant="primary" type="submit">
             Submit
           </Button>
+          <Button variant="danger" onClick={deleteRecipe}>
+            Delete recipe
+          </Button>
         </Form>
       </div>
+
+      {/* <button onClick={deleteRecipe}>Delete recipe</button> */}
     </div>
   );
 }
 
-export default AddRecipe;
+export default UpdateRecipe;

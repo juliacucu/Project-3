@@ -14,6 +14,8 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import AddRecipe from "./pages/AddRecipe";
+import UpdateFormRecipe from "./pages/UpdateFormRecipe";
+import FAQsPage from "./pages/FAQsPage";
 
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
@@ -53,7 +55,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
         <Route
           exact
           path="/recipes/dinner"
@@ -102,10 +103,20 @@ function App() {
         />
         <Route
           exact
-          path="/addrecipe"
+          path="/recipes/create"
           element={
             <PrivateRoute>
               <AddRecipe />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          exact
+          path="/recipes/:id/update"
+          element={
+            <PrivateRoute>
+              <UpdateFormRecipe />
             </PrivateRoute>
           }
         />
@@ -116,6 +127,15 @@ function App() {
           element={
             <PrivateRoute>
               <UserPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/faqs"
+          element={
+            <PrivateRoute>
+              <FAQsPage />
             </PrivateRoute>
           }
         />
@@ -144,3 +164,4 @@ function App() {
 }
 
 export default App;
+    

@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = require("../models/User");
 const Recipe = require("../models/Recipe");
-const { isAuthenticated } = require('./../middleware/jwt.middleware.js');
+const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
 
 //  POST /api/recipes  -  Creates a new recipe
 router.post("/recipes/create", isAuthenticated, (req, res, next) => {
@@ -29,35 +29,31 @@ router.post("/recipes/create", isAuthenticated, (req, res, next) => {
     image,
     ingredients,
     steps,
-  })
-  .then((recipeCreated) => {
-    console.log(recipeCreated, 'Recepta creada')
-    const user = req.payload
-    console.log(user)
+  }).then((recipeCreated) => {
+    console.log(recipeCreated, "Recepta creada");
+    const user = req.payload;
+    console.log(user);
     User.findByIdAndUpdate(user._id, {
       $push: { userRecipes: recipeCreated._id },
     })
-      .then(() => {
-        res.redirect("/recipes");
-      })
-      // .then((response) => res.json(response))
-      .catch((err) => res.json(err));
-  })
-
+    .then((createdRecipe) => res.redirect(301, '/recipes'))
+    // .then((response) => res.json(response))
+    .catch((err) => res.json(err));
+  });
 });
 
 //  GET /api/recipes -  Retrieves all of the recipes
-router.get("/recipes", isAuthenticated,  (req, res, next) => {
+router.get("/recipes", isAuthenticated, (req, res, next) => {
   Recipe.find()
     .then((allRecipes) => {
-      console.log(allRecipes)
-      res.json(allRecipes)
+      console.log(allRecipes);
+      res.json(allRecipes);
     })
     .catch((err) => res.json(err));
 });
 
 //  GET /api/recipes/:recipeID -  Retrieves a specific recipe by id
-router.get("/recipes/:recipeId", isAuthenticated,  (req, res, next) => {
+router.get("/recipes/:recipeId", isAuthenticated, (req, res, next) => {
   const { recipeId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(recipeId)) {
@@ -69,8 +65,8 @@ router.get("/recipes/:recipeId", isAuthenticated,  (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// PUT  /api/recipes/:projectId  -  Updates a specific recipe by id
-router.put("/recipes/:recipeId", isAuthenticated,  (req, res, next) => {
+// PUT  /api/recipes/:recipeId  -  Updates a specific recipe by id
+router.put("/recipes/:recipeId/update", isAuthenticated, (req, res, next) => {
   const { recipeId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(recipeId)) {
@@ -86,7 +82,7 @@ router.put("/recipes/:recipeId", isAuthenticated,  (req, res, next) => {
 //Add favorites
 router.post("/recipes/add-favorite/:id", isAuthenticated, (req, res) => {
   const idRecipe = req.params.id;
-  const user = req.payload
+  const user = req.payload;
   User.findById(user._id)
     .then((userFound) => {
       if (!userFound.favorites.includes(idRecipe)) {
@@ -108,7 +104,7 @@ router.post("/recipes/add-favorite/:id", isAuthenticated, (req, res) => {
 });
 
 // DELETE  /api/recipes/:recipetId  -  Deletes a specific recipe by id
-router.delete("/recipes/:recipeId", isAuthenticated,  (req, res, next) => {
+router.delete("/recipes/:recipeId", isAuthenticated, (req, res, next) => {
   const { recipeId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(recipeId)) {
@@ -117,10 +113,11 @@ router.delete("/recipes/:recipeId", isAuthenticated,  (req, res, next) => {
   }
 
   Recipe.findByIdAndRemove(recipeId)
-    .then(() =>
-      res.json({
-        message: `Recipe with ${recipeId} is removed successfully.`,
-      })
+    .then(
+      () => res.redirect("/recipes")
+      // res.json({
+      //   message: `Recipe with ${recipeId} is removed successfully.`,
+      // }),
     )
     .catch((error) => res.json(error));
 });
