@@ -51,7 +51,7 @@ const UserPage = () => {
                       <Link to={`/recipes/${recipe._id}`}>{recipe.title}</Link>
                     </div>
                     <div>
-                      <Link to={`/recipes/${recipe._id}/update`}>Update</Link>
+                      <Link to={`/recipes/${recipe._id}/update`}>Update ✏️</Link>
                     </div>
                   </td>
                 </tr>
